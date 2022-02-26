@@ -56,7 +56,7 @@ def markdown_generator(obj: Animation):
     if not os.path.exists(dir):
         os.makedirs(dir)
     file = open(filename, 'w', encoding='utf-8')
-    file.write("#" + obj.name + '\n\n')
+    file.write("# " + obj.name + '\n\n')
     file.write("|------|スタッフ|\n")
     file.write("|:------:|:------:|\n")
     file.write("|原作|" + obj.author + '|\n')
