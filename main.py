@@ -1,35 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import hashlib
-import json
 import os
-
-
-class Animation:
-    def __init__(self):
-        # 作品
-        self.name = ''
-        # 原作
-        self.author = ''
-        # 原作イラスト
-        self.illustrator = ''
-        # 監督
-        self.director = ''
-        # アニメーション制作
-        self.studio = ''
-        # 製作委員会
-        self.committee = ''
-        # 放送開始期間
-        self.start = ''
-        # 放送終了期間
-        self.end = ''
-        # 話数
-        self.episode = ''
-        # OVA話数
-        self.ova = ''
+from components.classes import *
+import json
 
 
 def json_phase(dir: str) -> Animation:
+    """Transfer the json content to Animation object
+
+    :param dir: The directory of json file
+    :return: Transferred Animation object
+    """
     file = open(dir, 'r', encoding='utf-8')
     anime = json.loads(file.read())
     object = Animation()
@@ -38,19 +20,29 @@ def json_phase(dir: str) -> Animation:
     return object
 
 
-def season_acquire(month: str):
-    if month in ('1', '2', '3'):
+def season_acquire(month: str) -> str:
+    """ Chose the season that correspond with the month
+
+    :param month: The month when the animation starts to broadcast
+    :return: Corresponding season
+    """
+    if month in ('1', '2', '3', '01', '02', '03'):
         season = '01-Winter'
-    if month in ('4', '5', '6'):
+    if month in ('4', '5', '6', '04', '05', '06'):
         season = '02-Sprint'
-    if month in ('7', '8', '9'):
+    if month in ('7', '8', '9', '07', '08', '09'):
         season = '03-Summer'
     if month in ('10', '11', '12'):
         season = '04-Autumn'
     return season
 
 
-def markdown_generator(jsonfile: str):
+def markdown_generator(jsonfile: str) -> None:
+    """Generate corresponding markdown file by allocated json file
+
+    :param jsonfile: The directory of the allocated json file
+    :return: None
+    """
     obj = json_phase(jsonfile)
     hashcode = gethash(jsonfile)
     date = obj.start.split('.')
@@ -92,10 +84,20 @@ def process() -> None:
 
 
 def json_to_str(jsonfile: str) -> str:
+    """Transfer content of json file to string
+
+    :param jsonfile: The directory of json file
+    :return: Corresponding string
+    """
     return json.dumps(json.loads(open(jsonfile, 'r', encoding='utf-8').read()))
 
 
 def gethash(jsonfile: str) -> str:
+    """Calculate the hash code of the content of json file
+
+    :param jsonfile: the content of json file
+    :return: Calculated hash code
+    """
     return hashlib.sha256(json_to_str(jsonfile).encode()).hexdigest()
 
 
