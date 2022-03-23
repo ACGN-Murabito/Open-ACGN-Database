@@ -1,4 +1,5 @@
 <p align="center"><img src="./assets/ACGNDB.png" alt="bootstrap-stack" width="400" /></p>
+
 # Open ACGN Database (🔧Testing...)
 
 💾An Open Database for ACGN+ (Animations, Comics, Games, Light Novels, etc...).
